@@ -79,8 +79,6 @@ int main()
 		if (str == NULL)
 		{
 
-			printf("\n\n%d번째에서 error 발생\n\n", count);
-
 			printf("시스템을 종료합니다..");
 
 			exit(0);
@@ -280,7 +278,7 @@ int main()
 
 		{
 
-			sprintf(fl, "D:\SMU\CheonanBus(DankookUniv)\Data_Day\BusData%c%c%c%c%c%c.txt", strtemp[0], strtemp[1], strtemp[2], strtemp[3], strtemp[4], strtemp[5]);
+			sprintf(fl, "D:\SMU\CheonanBus(DankookUniv)\Data_Day\BusData%c%c%c%c%c%c.csv", strtemp[0], strtemp[1], strtemp[2], strtemp[3], strtemp[4], strtemp[5]);
 
 			fpwrite = fopen(fl, "ab");
 
@@ -311,8 +309,6 @@ int main()
 		//
 
 		//fclose(stream);
-
-		count = count + 1;
 
 
 
