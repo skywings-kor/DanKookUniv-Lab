@@ -19,19 +19,19 @@ int main()
 
 	char str[300];		//한줄 가져오기 위한 공간
 
-	char* tripkey, * driverecord, * chade, * cardef, * carnum, * company, * driverCode, * daydrive, * totaldrive, * carspeed, * carengine, * carbreak, * positionX, * positionY, * GIS, * acclerateX, * accelerateY, * signalCode, * areaCode, * inforDate,* temptemp;
+	char* tripkey, * driverecord, * chade, * cardef, * carnum, * company, * drivercode, * daydrive, * totaldrive, * carspeed, * carengine, * carbreak, * positionx, * positiony, * gis, * accleratex, * acceleratey, * signalcode, * areacode, * infordate,* temptemp;
 
-	int nowDate = 0;
+	int nowdate = 0;
 
-	int nowTemp = 0;
+	int nowtemp = 0;
 
-	int nowYear = 0;
+	int nowyear = 0;
 
-	int nowMonth = 0;
+	int nowmonth = 0;
 
-	int nowDay = 0;
+	int nowday = 0;
 
-	int beforeDate = 0;
+	int beforedate = 0;
 
 
 
@@ -42,21 +42,20 @@ int main()
 	char strtemp[50] = "";
 	char strtemp2[50] = "";
 
-		
+	char fpstr[10] = "";	//이 변수는 파일 기존 작성된게 있는지 없는지 확인하기 위한 변수임.
 
-	char fl[100] = "D:\SMU\CheonanBus(DankookUniv)\Data_Day\BusData200101.txt";
+	char fl[100] = "d:\smu\cheonanbus(dankookuniv)\data_day\busdata200101.csv";
 
 
 
-	FILE* fpread, * fpwrite;
-
+	file* dataread, * fpwrite, *fpcreate,*fpread;
 
 	//파일명 바꾸는 위치
-	fpread = fopen("DTG8", "rb");	
+	dataread = fopen("dtg1", "rb");
 
 
 
-	//if ((fpread = fopen("DTG-r-00000", "w")) == NULL)
+	//if ((fpread = fopen("dtg-r-00000", "w")) == null)
 
 	//{
 
@@ -70,254 +69,531 @@ int main()
 
 
 
-	while (!feof(fpread))
+	while (!feof(dataread))
 
 	{
 
-		fgets(str, sizeof(str), fpread);
+		fgets(str, sizeof(str), dataread);
 
-		if (str == NULL)
+		if (str == null)
 		{
 
 			printf("시스템을 종료합니다..");
 
 			exit(0);
+		}
+
+		/*strcpy(strline, str);*/
+
+		tripkey = strtok(str, "|\n");		//트립 키
+
+		driverecord = strtok(null, "|\n");		//운행기록장치
+
+		//if (strcmp(driverecord, "eco dtg-1000") == 0)
+
+		if (strstr(driverecord, "ecodtg") != null)		//eco가 있으면 해당 코드 실행
+		{
+			chade = strtok(null, "|\n");		//차대번호		
+
+			cardef = strtok(null, "|\n");		//자동차 유형
+
+			carnum = strtok(null, "|\n");		//자동차 등록번호 충남70바...
+
+			company = strtok(null, "|\n");		//운송사업자 등록번호
+
+			drivercode = strtok(null, "|\n");		//운전자 코드
+
+			daydrive = strtok(null, "|\n");		//일일 주행거리
+
+			totaldrive = strtok(null, "|\n");		//누적 주행거리
+
+			carspeed = strtok(null, "|\n");		//차량속도
+
+			carengine = strtok(null, "|\n");		//분당 엔진회전 수
+
+			carbreak = strtok(null, "|\n");		//브레이크 신호
+
+			positionx = strtok(null, "|\n");		//차량 위치x
+
+			positiony = strtok(null, "|\n");		//차량 위치y
+
+			gis = strtok(null, "|\n");		//gis 방위각
+
+			accleratex = strtok(null, "|\n");		// 가속도 vx	
+
+			acceleratey = strtok(null, "|\n");		// 가속도 vy
+
+			signalcode = strtok(null, "|\n");		//통신상태코드
+
+			areacode = strtok(null, "|\n");		//운행지역코드
+
+			infordate = strtok(null, "|\n");		//정보발생일시
+
+			//csv파일 작성을 위한 개발 추가
+			printf("%s\n", infordate);
+			strcpy(strtemp, infordate);
+			sprintf(fl, "day_busdata%c%c%c%c%c%c.csv", strtemp[0], strtemp[1], strtemp[2], strtemp[3], strtemp[4], strtemp[5]);
+
+			//파일에 첫번째 인덱스가 없을경우 생성하기 위한 코드
 
 
 
+			fpwrite = fopen(fl, "ab");
 
+			fputs(tripkey, fpwrite);
+			fputs(",", fpwrite);
+			fputs(driverecord, fpwrite);
+			fputs(",", fpwrite);
+			fputs(chade, fpwrite);
+			fputs(",", fpwrite);
+			fputs(cardef, fpwrite);
+			fputs(",", fpwrite);
+			fputs(carnum, fpwrite);
+			fputs(",", fpwrite);
+			fputs(company, fpwrite);
+			fputs(",", fpwrite);
+			fputs(drivercode, fpwrite);
+			fputs(",", fpwrite);
+			fputs(daydrive, fpwrite);
+			fputs(",", fpwrite);
+			fputs(totaldrive, fpwrite);
+			fputs(",", fpwrite);
+			fputs(carspeed, fpwrite);
+			fputs(",", fpwrite);
+			fputs(carengine, fpwrite);
+			fputs(",", fpwrite);
+			fputs(carbreak, fpwrite);
+			fputs(",", fpwrite);
+			fputs(positionx, fpwrite);
+			fputs(",", fpwrite);
+			fputs(positiony, fpwrite);
+			fputs(",", fpwrite);
+			fputs(gis, fpwrite);
+			fputs(",", fpwrite);
+			fputs(accleratex, fpwrite);
+			fputs(",", fpwrite);
+			fputs(acceleratey, fpwrite);
+			fputs(",", fpwrite);
+			fputs(signalcode, fpwrite);
+			fputs(",", fpwrite);
+			fputs(areacode, fpwrite);
+			fputs(",", fpwrite);
+			fputs(infordate, fpwrite);
+
+
+
+			fputs("\n", fpwrite);
+			fclose(fpwrite);
+
+			//eco 고치기 전 코드 입니다
+			//chade = strtok(null, "|\n");		//차대번호		
+
+			//cardef = strtok(null, "|\n");		//자동차 유형
+
+			//carnum = strtok(null, "|\n");		//자동차 등록번호 충남70바...
+
+			//company = strtok(null, "|\n");		//운송사업자 등록번호
+
+			//drivercode = strtok(null, "|\n");		//운전자 코드
+
+			//daydrive = strtok(null, "|\n");		//일일 주행거리
+
+			//totaldrive = strtok(null, "|\n");		//누적 주행거리
+
+			//carspeed = strtok(null, "|\n");		//차량속도
+
+			//carengine = strtok(null, "|\n");		//분당 엔진회전 수
+
+			//carbreak = strtok(null, "|\n");		//브레이크 신호
+
+			//positionx = strtok(null, "|\n");		//차량 위치x
+
+			//positiony = strtok(null, "|\n");		//차량 위치y
+
+			//gis = strtok(null, "|\n");		//gis 방위각
+
+			//accleratex = strtok(null, "|\n");		// 가속도 vx	
+
+			//acceleratey = strtok(null, "|\n");		// 가속도 vy
+
+			//signalcode = strtok(null, "|\n");		//통신상태코드
+
+			//areacode = strtok(null, "|\n");		//운행지역코드
+
+			//infordate = strtok(null, "|\n");		//정보발생일시
+
+
+
+			////csv파일 작성을 위한 개발 추가
+			//printf("%s\n", infordate);
+			//strcpy(strtemp, infordate);
+			//sprintf(fl, "day_busdata%c%c%c%c%c%c.csv", strtemp[0], strtemp[1], strtemp[2], strtemp[3], strtemp[4], strtemp[5]);
+
+			//////파일에 첫번째 인덱스가 없을경우 생성하기 위한 코드
+
+			//fpwrite = fopen(fl, "ab");
+
+			//fputs(tripkey, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(driverecord, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(chade, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(cardef, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(carnum, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(company, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(drivercode, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(daydrive, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(totaldrive, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(carspeed, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(carengine, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(carbreak, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(positionx, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(positiony, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(gis, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(accleratex, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(acceleratey, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(signalcode, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(areacode, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(infordate, fpwrite);
+
+
+
+			//fputs("\n", fpwrite);
+			//fclose(fpwrite);
 
 		}
 
-		strcpy(strline, str);
 
-		tripkey = strtok(str, " |\n");		//트립 키
-
-		driverecord = strtok(NULL, " |\n");		//운행기록장치
-
-
-
-		//if (strcmp(driverecord, "ECO DTG-1000") == 0)
-
-		if (strstr(driverecord, "ECODTG") != NULL)		//ECO가 있으면 해당 코드 실행
+		else if (strstr(driverecord, "eco") != null)		//eco가 있으면 해당 코드 실행
 		{
-			chade = strtok(NULL, " |\n");		//차대번호		
+			chade = strtok(null, "|\n");		//차대번호		
 
-			cardef = strtok(NULL, " |\n");		//자동차 유형
+			cardef = strtok(null, "|\n");		//자동차 유형
 
-			carnum = strtok(NULL, " |\n");		//자동차 등록번호 충남70바...
+			carnum = strtok(null, "|\n");		//자동차 등록번호 충남70바...
 
-			company = strtok(NULL, " |\n");		//운송사업자 등록번호
+			company = strtok(null, "|\n");		//운송사업자 등록번호
 
-			driverCode = strtok(NULL, " |\n");		//운전자 코드
+			drivercode = strtok(null, "|\n");		//운전자 코드
 
-			daydrive = strtok(NULL, " |\n");		//일일 주행거리
+			daydrive = strtok(null, "|\n");		//일일 주행거리
 
-			totaldrive = strtok(NULL, " |\n");		//누적 주행거리
+			totaldrive = strtok(null, "|\n");		//누적 주행거리
 
-			carspeed = strtok(NULL, " |\n");		//차량속도
+			carspeed = strtok(null, "|\n");		//차량속도
 
-			carengine = strtok(NULL, " |\n");		//분당 엔진회전 수
+			carengine = strtok(null, "|\n");		//분당 엔진회전 수
 
-			carbreak = strtok(NULL, " |\n");		//브레이크 신호
+			carbreak = strtok(null, "|\n");		//브레이크 신호
 
-			positionX = strtok(NULL, " |\n");		//차량 위치X
+			positionx = strtok(null, "|\n");		//차량 위치x
 
-			positionY = strtok(NULL, " |\n");		//차량 위치Y
+			positiony = strtok(null, "|\n");		//차량 위치y
 
-			GIS = strtok(NULL, " |\n");		//GIS 방위각
+			gis = strtok(null, "|\n");		//gis 방위각
 
-			acclerateX = strtok(NULL, " |\n");		// 가속도 VX	
+			accleratex = strtok(null, "|\n");		// 가속도 vx	
 
-			accelerateY = strtok(NULL, " |\n");		// 가속도 VY
+			acceleratey = strtok(null, "|\n");		// 가속도 vy
 
-			signalCode = strtok(NULL, " |\n");		//통신상태코드
+			signalcode = strtok(null, "|\n");		//통신상태코드
 
-			areaCode = strtok(NULL, " |\n");		//운행지역코드
+			areacode = strtok(null, "|\n");		//운행지역코드
 
-			inforDate = strtok(NULL, " |\n");		//정보발생일시
+			infordate = strtok(null, "|\n");		//정보발생일시
 
-		}
+			//csv파일 작성을 위한 개발 추가
+			printf("%s\n", infordate);
+			strcpy(strtemp, infordate);
+			sprintf(fl, "day_busdata%c%c%c%c%c%c.csv", strtemp[0], strtemp[1], strtemp[2], strtemp[3], strtemp[4], strtemp[5]);
+
+			//파일에 첫번째 인덱스가 없을경우 생성하기 위한 코드
 
 
-		else if (strstr(driverecord, "ECO") != NULL)		//ECO가 있으면 해당 코드 실행
-		{
-			chade = strtok(NULL, " |\n");		//차대번호		
 
-			cardef = strtok(NULL, " |\n");		//자동차 유형
+			fpwrite = fopen(fl, "ab");
 
-			carnum = strtok(NULL, " |\n");		//자동차 등록번호 충남70바...
+			fputs(tripkey, fpwrite);
+			fputs(",", fpwrite);
+			fputs(driverecord, fpwrite);
+			fputs(",", fpwrite);
+			fputs(chade, fpwrite);
+			fputs(",", fpwrite);
+			fputs(cardef, fpwrite);
+			fputs(",", fpwrite);
+			fputs(carnum, fpwrite);
+			fputs(",", fpwrite);
+			fputs(company, fpwrite);
+			fputs(",", fpwrite);
+			fputs(drivercode, fpwrite);
+			fputs(",", fpwrite);
+			fputs(daydrive, fpwrite);
+			fputs(",", fpwrite);
+			fputs(totaldrive, fpwrite);
+			fputs(",", fpwrite);
+			fputs(carspeed, fpwrite);
+			fputs(",", fpwrite);
+			fputs(carengine, fpwrite);
+			fputs(",", fpwrite);
+			fputs(carbreak, fpwrite);
+			fputs(",", fpwrite);
+			fputs(positionx, fpwrite);
+			fputs(",", fpwrite);
+			fputs(positiony, fpwrite);
+			fputs(",", fpwrite);
+			fputs(gis, fpwrite);
+			fputs(",", fpwrite);
+			fputs(accleratex, fpwrite);
+			fputs(",", fpwrite);
+			fputs(acceleratey, fpwrite);
+			fputs(",", fpwrite);
+			fputs(signalcode, fpwrite);
+			fputs(",", fpwrite);
+			fputs(areacode, fpwrite);
+			fputs(",", fpwrite);
+			fputs(infordate, fpwrite);
 
-			company = strtok(NULL, " |\n");		//운송사업자 등록번호
 
-			driverCode = strtok(NULL, " |\n");		//운전자 코드
 
-			daydrive = strtok(NULL, " |\n");		//일일 주행거리
+			fputs("\n", fpwrite);
+			fclose(fpwrite);
 
-			totaldrive = strtok(NULL, " |\n");		//누적 주행거리
 
-			carspeed = strtok(NULL, " |\n");		//차량속도
+			//eco  고치기 전 코드입니다
+			//chade = strtok(null, "|\n");		//차대번호		
 
-			carengine = strtok(NULL, " |\n");		//분당 엔진회전 수
+			//cardef = strtok(null, "|\n");		//자동차 유형
 
-			carbreak = strtok(NULL, " |\n");		//브레이크 신호
+			//carnum = strtok(null, "|\n");		//자동차 등록번호 충남70바...
 
-			positionX = strtok(NULL, " |\n");		//차량 위치X
+			//company = strtok(null, "|\n");		//운송사업자 등록번호
 
-			positionY = strtok(NULL, " |\n");		//차량 위치Y
+			//drivercode = strtok(null, "|\n");		//운전자 코드
 
-			GIS = strtok(NULL, " |\n");		//GIS 방위각
+			//daydrive = strtok(null, "|\n");		//일일 주행거리
 
-			acclerateX = strtok(NULL, " |\n");		// 가속도 VX	
+			//totaldrive = strtok(null, "|\n");		//누적 주행거리
 
-			accelerateY = strtok(NULL, " |\n");		// 가속도 VY
+			//carspeed = strtok(null, "|\n");		//차량속도
 
-			signalCode = strtok(NULL, " |\n");		//통신상태코드
+			//carengine = strtok(null, "|\n");		//분당 엔진회전 수
 
-			areaCode = strtok(NULL, " |\n");		//운행지역코드
+			//carbreak = strtok(null, "|\n");		//브레이크 신호
 
-			temptemp = strtok(NULL, " |\n");		//임시방편
+			//positionx = strtok(null, "|\n");		//차량 위치x
 
-			inforDate = strtok(NULL, " |\n");		//정보발생일시
+			//positiony = strtok(null, "|\n");		//차량 위치y
 
+			//gis = strtok(null, "|\n");		//gis 방위각
+
+			//accleratex = strtok(null, "|\n");		// 가속도 vx	
+
+			//acceleratey = strtok(null, "|\n");		// 가속도 vy
+
+			//signalcode = strtok(null, "|\n");		//통신상태코드
+
+			//areacode = strtok(null, "|\n");		//운행지역코드
+
+			//temptemp = strtok(null, "|\n");		//임시방편
+
+			//infordate = strtok(null, "|\n");		//정보발생일시
+
+			////csv파일 작성을 위한 개발 추가
+			//printf("%s\n", infordate);
+			//strcpy(strtemp, infordate);
+			//sprintf(fl, "day_busdata%c%c%c%c%c%c.csv", strtemp[0], strtemp[1], strtemp[2], strtemp[3], strtemp[4], strtemp[5]);
+
+			////파일에 첫번째 인덱스가 없을경우 생성하기 위한 코드
+			//
+
+			//fpwrite = fopen(fl, "ab");
+
+			//fputs(tripkey, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(driverecord, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(chade, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(cardef, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(carnum, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(company, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(drivercode, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(daydrive, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(totaldrive, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(carspeed, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(carengine, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(carbreak, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(positionx, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(positiony, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(gis, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(accleratex, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(acceleratey, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(signalcode, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(areacode, fpwrite);
+			//fputs(",", fpwrite);
+			//fputs(infordate, fpwrite);
+
+
+
+			//fputs("\n", fpwrite);
+			//fclose(fpwrite);
 		}
 
 
 
 		else	//없으면 해당 코드 실행
-
 		{
+			chade = strtok(null, "|\n");		//차대번호		
+
+			cardef = strtok(null, "|\n");		//자동차 유형
+
+			carnum = strtok(null, "|\n");		//자동차 등록번호 충남70바...
+
+			company = strtok(null, "|\n");		//운송사업자 등록번호
+
+			drivercode = strtok(null, "|\n");		//운전자 코드
+
+			daydrive = strtok(null, "|\n");		//일일 주행거리
+
+			totaldrive = strtok(null, "|\n");		//누적 주행거리
+
+			carspeed = strtok(null, "|\n");		//차량속도
+
+			carengine = strtok(null, "|\n");		//분당 엔진회전 수
+
+			carbreak = strtok(null, "|\n");		//브레이크 신호
+
+			positionx = strtok(null, "|\n");		//차량 위치x
+
+			positiony = strtok(null, "|\n");		//차량 위치y
+
+			gis = strtok(null, "|\n");		//gis 방위각
+
+			accleratex = strtok(null, "|\n");		// 가속도 vx	
+
+			acceleratey = strtok(null, "|\n");		// 가속도 vy
+
+			signalcode = strtok(null, "|\n");		//통신상태코드
+
+			areacode = strtok(null, "|\n");		//운행지역코드
+
+			infordate = strtok(null, "|\n");		//정보발생일시
+
+			//csv파일 작성을 위한 개발 추가
+			printf("%s\n", infordate);
+			strcpy(strtemp, infordate);
+			sprintf(fl, "day_busdata%c%c%c%c%c%c.csv", strtemp[0], strtemp[1], strtemp[2], strtemp[3], strtemp[4], strtemp[5]);
+
+			//파일에 첫번째 인덱스가 없을경우 생성하기 위한 코드
+			
+			
+
+			fpwrite = fopen(fl, "ab");
+
+			fputs(tripkey, fpwrite);
+			fputs(",", fpwrite);
+			fputs(driverecord, fpwrite);
+			fputs(",", fpwrite);
+			fputs(chade, fpwrite);
+			fputs(",", fpwrite);
+			fputs(cardef, fpwrite);
+			fputs(",", fpwrite);
+			fputs(carnum, fpwrite);
+			fputs(",", fpwrite);
+			fputs(company, fpwrite);
+			fputs(",",	fpwrite);
+			fputs(drivercode, fpwrite);
+			fputs(",", fpwrite);
+			fputs(daydrive, fpwrite);
+			fputs(",", fpwrite);
+			fputs(totaldrive, fpwrite);
+			fputs(",", fpwrite); 
+			fputs(carspeed, fpwrite);
+			fputs(",", fpwrite);
+			fputs(carengine, fpwrite);
+			fputs(",", fpwrite);
+			fputs(carbreak, fpwrite);
+			fputs(",", fpwrite);
+			fputs(positionx, fpwrite);
+			fputs(",", fpwrite);
+			fputs(positiony, fpwrite);
+			fputs(",", fpwrite);
+			fputs(gis, fpwrite);
+			fputs(",", fpwrite);
+			fputs(accleratex, fpwrite);
+			fputs(",", fpwrite);
+			fputs(acceleratey, fpwrite);
+			fputs(",", fpwrite);
+			fputs(signalcode, fpwrite);
+			fputs(",", fpwrite);
+			fputs(areacode, fpwrite);
+			fputs(",", fpwrite);
+			fputs(infordate, fpwrite);
 
 
 
-			chade = strtok(NULL, " |\n");		//차대번호		
-
-			cardef = strtok(NULL, " |\n");		//자동차 유형
-
-			carnum = strtok(NULL, " |\n");		//자동차 등록번호 충남70바...
-
-			company = strtok(NULL, " |\n");		//운송사업자 등록번호
-
-			driverCode = strtok(NULL, " |\n");		//운전자 코드
-
-			daydrive = strtok(NULL, " |\n");		//일일 주행거리
-
-			totaldrive = strtok(NULL, " |\n");		//누적 주행거리
-
-			carspeed = strtok(NULL, " |\n");		//차량속도
-
-			carengine = strtok(NULL, " |\n");		//분당 엔진회전 수
-
-			carbreak = strtok(NULL, " |\n");		//브레이크 신호
-
-			positionX = strtok(NULL, " |\n");		//차량 위치X
-
-			positionY = strtok(NULL, " |\n");		//차량 위치Y
-
-			GIS = strtok(NULL, " |\n");		//GIS 방위각
-
-			acclerateX = strtok(NULL, " |\n");		// 가속도 VX	
-
-			accelerateY = strtok(NULL, " |\n");		// 가속도 VY
-
-			signalCode = strtok(NULL, " |\n");		//통신상태코드
-
-			areaCode = strtok(NULL, " |\n");		//운행지역코드
-
-			inforDate = strtok(NULL, " |\n");		//정보발생일시
-
+			fputs("\n", fpwrite);
+			fclose(fpwrite);
+			
 		}
 
-		printf("%s\n", inforDate);
-		strcpy(strtemp, inforDate);
-
-		if (inforDate == NULL)
-		{
-			inforDate = "2999999";
-		}
-		
-
-		/*
-		if (strtemp == NULL)
-		{
-			strcpy(strtemp, areaCode);
-		}*/
-		//printf("%s\n", inforDate);
-
-		//nowDate = atol(inforDate);
-
-		//printf("%lld\n\n", nowDate);
-
-		////nowYear = nowDate / 1000000000000;		//20년도
 
 
+		//기존 방식
+		// printf("%s\n", infordate);
+		//strcpy(strtemp, infordate);
 
-		////하루마다 생성하는 방식
-
-		//nowTemp = nowDate / 100000000;		//년월일 정수형으로
-
-		//printf("%lld\n\n", nowTemp);
-
-		///*
-
-		//if (strtemp[5] == NULL)		//NULL값 대비용
-
+		//if (infordate == null)
 		//{
+		//	infordate = "2999999";
+		//}
+		//
 
-		//	fpwrite = fopen("Error.txt", "ab");
+		//else
+		//{
+		//	sprintf(fl, "d:\smu\cheonanbus(dankookuniv)\data_day\busdata%c%c%c%c%c%c.csv", strtemp[0], strtemp[1], strtemp[2], strtemp[3], strtemp[4], strtemp[5]);
+
+		//	fpwrite = fopen(fl, "ab");
 
 		//	fputs(strline, fpwrite);
 
 		//	fclose(fpwrite);
-
 		//}
-
-
-
-		else
-
-		{
-
-			sprintf(fl, "D:\SMU\CheonanBus(DankookUniv)\Data_Day\BusData%c%c%c%c%c%c.csv", strtemp[0], strtemp[1], strtemp[2], strtemp[3], strtemp[4], strtemp[5]);
-
-			fpwrite = fopen(fl, "ab");
-
-			fputs(strline, fpwrite);
-
-			fclose(fpwrite);
-
-		}
-
-		//printf("??\n\n");*/
-
-		//
-
-		//stream = fopen(fl, "a");
-
-		//fputs(str, stream);
-
-
-
-		//printf("로딩중...%d\n", count);
-
-		//count = count + 1;
-
-		//
-
-		//beforeDate = nowTemp;
-
-		//
-
-		//fclose(stream);
-
-
-
-
-
+		
 	}
+	
+	fclose(dataread);
 
-
-
-	fclose(fpread);
-
-}
+}								
